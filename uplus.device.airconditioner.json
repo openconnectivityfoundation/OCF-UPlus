@@ -1,0 +1,72 @@
+{
+  "id": "http://openinterconnect.org/uplusocfmapping/schemas/uplus.device.airconditioner.json#",                           
+  "$schema": "http://json-schema.org/draft-04/schema#",                                                            
+  "description" : "Copyright (c) 2018 Open Connectivity Foundation, Inc. All rights reserved.",                    
+  "title": "AirConditioner Mapping",                                                                                
+  "definitions": {                                                                                                 
+    "uplus.device.airconditioner": {                                                                          
+      "type": "object",                                                                                            
+      "properties": {
+        "onOffStatus": {                                                                                      
+          "type" :  "boolean",                                                          
+          "description": "the switch of air conditioner",
+          "x-ocf-conversion": {
+            "x-ocf-alias": "oic.r.switch.binary.value",
+            "x-to-ocf": [
+            "oic.r.switch.value = onOffStatus"		
+            ],
+            "x-from-ocf": [
+            "onOffStatus=oic.r.switch.value"   
+            ]
+          }
+        },
+        "targetTemperature": {                                                                                      
+          "type": "number",                                                                                        
+          "description": "target temperature",
+          "x-ocf-conversion": {
+            "x-ocf-alias": "oic.r.temperature.temperature",
+            "x-to-ocf": [
+            "oic.r.temperature.temperature=targetTemperature"
+            ],
+            "x-from-ocf": [
+	        "targetTemperature=oic.r.temperature.temperature"
+            ]
+          }
+        },
+        "windSpeed": {                                                                                    
+          "type": "integer" ,                                                                                        											
+          "description": "wind speed",                                             
+          "x-ocf-conversion": {
+            "x-ocf-alias": "oic.r.selectablelevels",
+            "x-to-ocf": [
+              "availablelevels=[1,2,3,4,5]",
+              "targetlevel=windSpeed"
+            ],
+            "x-from-ocf": [
+              "windSpeed=targetlevel"
+            ]
+          }    
+        },
+        "operationMode": {                                                                                      
+          "type": "integer" ,                                                                                      
+          "description": "",							                                 
+          "x-ocf-conversion": {
+            "x-ocf-alias": "oic.r.mode",
+            "x-to-ocf": [
+              "supportedModes= [\"Auto\",\"Cool\",\"Dry\",\"Warm\",\"Wind\"]",
+              "modes=supportedModes[operationMode]"
+            ],
+            "x-from-ocf": [
+              "operationMode= supportedModes.indexof(modes)"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {"$ref": "#/definitions/uplus.device.airconditioner"}
+  ],
+  "required": ["onOffStatus","targetTemperature","windSpeed","operationMode"]
+}
