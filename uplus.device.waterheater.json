@@ -1,0 +1,45 @@
+{
+  "id": "http://openinterconnect.org/uplusocfmapping/schemas/uplus.device.waterheater.json#",                           
+  "$schema": "http://json-schema.org/draft-04/schema#",                                                            
+  "description" : "Copyright (c) 2018 Open Connectivity Foundation, Inc. All rights reserved.",                    
+  "title": "WaterHeater Mapping",                                                                                
+  "definitions": {                                                                                                 
+    "uplus.device.waterheater": {                                                                          
+      "type": "object",                                                                                            
+      "properties": {                                                                                              
+        "onOffStatus": {                                                                                      
+          "type" :  "boolean",                                                          
+          "description": "the switch of water heater",
+          "x-ocf-conversion": {
+            "x-ocf-alias": "oic.r.switch.binary.value",
+            "x-to-ocf": [
+                "oic.r.switch.binary.value = onOffStatus"		
+            ],
+            "x-from-ocf": [
+                "onOffStatus = oic.r.switch.binary.value"   
+            ]
+          }
+        },
+        "targetTemperature": {                                                                                      
+          "type": "number",                                                                                        
+          "description": "target temperature",
+          "x-ocf-conversion": {
+            "x-ocf-alias": "oic.r.temperature.temperature",
+            "x-to-ocf": [
+                "oic.r.temperature.temperature=targetTemperature"
+            ],
+            "x-from-ocf": [
+	            "targetTemperature=oic.r.temperature.temperature"
+            ]
+          }
+        }
+      }
+    }
+  },
+ 
+  "type": "object",
+   "allOf": [
+    {"$ref": "#/definitions/uplus.device.warterheater"}
+  ],
+  "required": ["onOffStatus","targetTemperature"]
+}
